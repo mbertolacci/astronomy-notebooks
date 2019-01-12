@@ -1,0 +1,205 @@
+<html>
+<head>
+
+<link href="normalize.css" rel="stylesheet" />
+<style type="text/css">
+body {
+    font-family: BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.container {
+    margin: 20px auto;
+    width: 1000px;
+}
+
+.target {
+    float: left;
+    padding: 10px;
+    border: 1px dotted #888;
+    page-break-inside: avoid;
+}
+
+.main::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.identity,
+.target-details,
+.observation-details,
+.notes {
+    float: left;
+    padding: 0 10px 0 0;
+}
+
+.identity {
+    width: 182px;
+}
+.target-details {
+    width: 110px;
+}
+.observation-details {
+    width: 145px;
+}
+
+.identity .type {
+    font-size: small;
+}
+
+.identity .name {
+    font-size: x-large;
+    padding: 5px 0;
+}
+
+.identity .alternative-names {
+    font-style: italic;
+}
+
+.note-divider {
+    height: 25px;
+    border-bottom: 1px solid #444;
+}
+
+.description {
+    margin-top: 20px;
+}
+
+.target-details > div {
+    padding: 5px 0;
+    border-bottom: 1px dotted #ddd;
+}
+
+.observation-details > div {
+    padding: 5px 0;
+    border-bottom: 1px dotted #ddd;
+}
+
+.target-details .label,
+.observation-details .label {
+    font-size: x-small;
+    color: #333;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="session">
+        Observation session from {{ start_time|datetimeformat }} to {{ end_time|datetimeformat }}. Ordered by {{ ordered_by }}.
+    </div>
+
+    <div class="targets">
+        {% for _, target in targets.iterrows() %}
+        <div class="target">
+            <div class="main">
+                <div class="identity">
+                    <div class="type">
+                        {{ target.Type }} in {{ target.Constellation }}
+                    </div>
+                    <div class="name">
+                        {% if target.FamiliarName %}
+                            {{ target.FamiliarName }}
+                        {% else %}
+                            {{ target.CatalogueEntry }}
+                        {% endif %}
+                    </div>
+                    <div class="alternative-names">
+                        {{ target.CatalogueEntry }}, {{ target.AlternativeNames }}
+                    </div>
+                </div>
+
+                <div class="target-details">
+                    <div class="magnitude">
+                        <div class="label">mag</div>
+                        <div class="value">
+                            {{ target.Magnitude }}
+                        </div>
+                    </div>
+                    <div class="right-ascension">
+                        <div class="label">ra</div>
+                        <div class="value">
+                            {{ target.RightAscensionString }}
+                        </div>
+                    </div>
+                    <div class="declination">
+                        <div class="label">dec</div>
+                        <div class="value">
+                            {{ target.DeclinationString }}
+                        </div>
+                    </div>
+                    <div class="size">
+                        <div class="label">size</div>
+                        <div class="value">
+                            {{ target.LongSize }} x {{ target.ShortSize }}
+                        </div>
+                    </div>
+                    <div class="chart-number">
+                        <div class="label">chart</div>
+                        <div class="value">
+                            {{ target.ChartNumber }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="observation-details">
+                    <div class="rise-time">
+                        <div class="label">rise</div>
+                        <div class="value">
+                            {{ target.RiseTime|datetimeformat }}&nbsp;
+                        </div>
+                    </div>
+                    <div class="set-time">
+                        <div class="label">set</div>
+                        <div class="value">
+                            {{ target.SetTime|datetimeformat }}&nbsp;
+                        </div>
+                    </div>
+                    <div class="start-altitude">
+                        <div class="label">start alt</div>
+                        <div class="value">
+                            {{ target.StartAltitude|int }}&deg;
+                        </div>
+                    </div>
+                    <div class="midnight-altitude">
+                        <div class="label">midnight alt</div>
+                        <div class="value">
+                            {{ target.MidnightAltitude|int }}&deg;
+                        </div>
+                    </div>
+                    <div class="transit-altitude">
+                        <div class="label">transit</div>
+                        <div class="value">
+                            {{ target.TransitTime|datetimeformat }} <br />
+                            {{ target.TransitAltitude|int }}&deg;
+                        </div>
+                    </div>
+                    <div class="end-altitude">
+                        <div class="label">end alt</div>
+                        <div class="value">
+                            {{ target.EndAltitude|int }}&deg;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notes">
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                    <div class="note-divider"></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
