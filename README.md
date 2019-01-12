@@ -4,7 +4,7 @@ This is a place I store IPython notebooks for amateur astronomy.
 
 At present I am using Python 3.6 via [Anaconda](https://www.anaconda.com/download) to run these. I haven't tried Python 3.7, though general experience suggests it would work fine.
 
-The folders with dated names (e.g. [20180106_planner](20180106_planner)) correspond to mini 'projects' where I try a thing or two. Inside each are a README and one or more IPython notebooks attempting what the project is about.
+The folders with dated names (e.g. [20180106_planner](https://github.com/mbertolacci/astronomy-notebooks/tree/master/20190106_planner)) correspond to mini 'projects' where I try a thing or two. Inside each are a README and one or more IPython notebooks attempting what the project is about.
 
 ## How to use these
 
